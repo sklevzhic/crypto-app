@@ -17,3 +17,6 @@ export const fetchCoins = () => {
 export const addCoinToPage = (obj: any): CoinsAction => {
     return {type: CoinsActionTypes.ADD_COIN_TO_PORTFOLIO, payload: obj}
 }
+export const deleteCoinFromPortfolio = (name: string): CoinsAction => {
+    return {type: CoinsActionTypes.DELETE_COIN_FROM_PORTFOLIO, payload: name}
+}

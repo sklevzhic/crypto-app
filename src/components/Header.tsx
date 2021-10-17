@@ -2,6 +2,7 @@ import React from 'react'
 import {Button, Col, Row} from "react-bootstrap";
 import {PopularCoins} from "./PopularCoins";
 import {ModalCoins} from "./Modal";
+import {MyCoinsList} from "./MyCoinsList";
 
 interface HeaderProps {
 
@@ -19,7 +20,10 @@ export const Header: React.FC<HeaderProps> = () => {
         <Col><Button onClick={() => setModalShow(true)}>Portfolio</Button></Col>
         <ModalCoins
             show={modalShow}
+            title={"My coins"}
             onHide={() => setModalShow(false)}
-        />
+        >
+            <MyCoinsList />
+        </ModalCoins>
     </Row>;
 };

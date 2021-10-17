@@ -10,6 +10,7 @@ export enum CoinsActionTypes {
     ADD_COIN_TO_PORTFOLIO = 'ADD_COIN_TO_PORTFOLIO',
     FETCH_COINS_SUCCESS = 'FETCH_COINS_SUCCESS',
     FETCH_COINS_ERROR = 'FETCH_COINS_ERROR',
+    DELETE_COIN_FROM_PORTFOLIO = 'DELETE_COIN_FROM_PORTFOLIO'
 }
 
 interface FetchCoinsAction {
@@ -24,9 +25,13 @@ interface AddCoinToPortfolioAction {
     type: CoinsActionTypes.ADD_COIN_TO_PORTFOLIO,
     payload: any
 }
+interface DeleteCoinFromPortfolioAction {
+    type: CoinsActionTypes.DELETE_COIN_FROM_PORTFOLIO,
+    payload: string
+}
 
 interface FetchCoinsErrorAction {
     type: CoinsActionTypes.FETCH_COINS_ERROR,
     payload: string
 }
-export type CoinsAction = FetchCoinsAction | FetchCoinsSuccessAction | FetchCoinsErrorAction | AddCoinToPortfolioAction
+export type CoinsAction = FetchCoinsAction | FetchCoinsSuccessAction | FetchCoinsErrorAction | AddCoinToPortfolioAction | DeleteCoinFromPortfolioAction

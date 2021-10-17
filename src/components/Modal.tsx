@@ -4,10 +4,11 @@ import {MyCoinsList} from "./MyCoinsList";
 interface ModalCoinsProps {
     show: boolean,
     onHide: () => void
-
+    title: string,
+    children: any
 }
 
-export const ModalCoins: React.FC<ModalCoinsProps> = ({ show, onHide}) => {
+export const ModalCoins: React.FC<ModalCoinsProps> = ({ show, onHide, title,children}) => {
     return  <Modal
         show={show}
         size="lg"
@@ -16,15 +17,14 @@ export const ModalCoins: React.FC<ModalCoinsProps> = ({ show, onHide}) => {
     >
         <Modal.Header>
             <Modal.Title id="contained-modal-title-vcenter">
-                My Coins
+                {title}
             </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            <MyCoinsList />
+            {children}
         </Modal.Body>
         <Modal.Footer>
             <Button onClick={onHide}>Close</Button>
-
         </Modal.Footer>
     </Modal>;
 };

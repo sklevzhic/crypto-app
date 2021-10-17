@@ -1,6 +1,9 @@
-import React, {useState} from 'react'
-import {Image, Col, Row, Button, Popover, Overlay} from "react-bootstrap";
+import React from 'react'
+import {Image, Col, Row, Button, FormControl, InputGroup, Form} from "react-bootstrap";
 import styles from './TableCoins.module.scss'
+import {ModalCoins} from "./Modal";
+import {useActions} from "../hooks/useActions";
+import {useInput} from "../hooks/useInput";
 
 
 interface TableCoinsListProps {
@@ -12,11 +15,19 @@ interface TableCoinsListProps {
 }
 
 export const TableCoinsItem: React.FC<TableCoinsListProps> = ({name, rank, symbol, priceUsd, changePercent24Hr}) => {
-    // let {addCoinToPage} = useActions()
-    const [isInput, setIsInput] = useState<boolean>(false)
-    const [show, setShow] = useState(false);
-    const [target, setTarget] = useState(null);
+    let {addCoinToPage} = useActions()
+    let countCurrency = useInput('')
 
+    const [modalShow, setModalShow] = React.useState<boolean>(false);
+
+    const handleSubmit = () => {
+        let obj = {
+            amount: countCurrency.value,
+            symbol: symbol,
+            name: name,
+        }
+        addCoinToPage(obj)
+    }
     return <tr>
         <td>{rank}</td>
         <td className={styles.tableItemColumn}>
@@ -37,30 +48,40 @@ export const TableCoinsItem: React.FC<TableCoinsListProps> = ({name, rank, symbo
 
 
         </td>
-        <td style={{textAlign: "right"}}>$ {parseFloat(priceUsd).toFixed(2)}</td>
-        <td>{parseFloat(changePercent24Hr).toFixed(2)} %</td>
+        <td style={{textAlign: "right"}}>
+            $ {parseFloat(priceUsd).toFixed(2)}
+        </td>
         <td>
-            {/*<div ref={ref}>*/}
-            {/*    <Button onClick={handleClick}>Holy guacamole!</Button>*/}
-            {/*    <Button onClick={() => setIsInput(!isInput)}>+</Button>*/}
-            {/*    <Overlay*/}
-            {/*        show={show}*/}
-            {/*        target={target}*/}
-            {/*        placement="bottom"*/}
-            {/*        container={ref}*/}
-            {/*        containerPadding={20}*/}
-            {/*    >*/}
-            {/*        <Popover id="popover-contained">*/}
-            {/*            <Popover.Header as="h3">Popover bottom</Popover.Header>*/}
-            {/*            <Popover.Body>*/}
-            {/*                <strong>Holy guacamole!</strong> Check this info.*/}
-            {/*            </Popover.Body>*/}
-            {/*        </Popover>*/}
-            {/*    </Overlay>*/}
-            {/*</div>*/}
+            {parseFloat(changePercent24Hr).toFixed(2)} %
+        </td>
+        <td>
+            <Button onClick={() => setModalShow(true)}>+</Button>
         </td>
 
-
+        <ModalCoins
+            show={modalShow}
+            title={"My coins"}
+            onHide={() => setModalShow(false)}
+        >
+            <p>Описание кратеое покупаемой </p>
+            <Row className="align-items-center">
+                <Col xs="auto">
+                    <InputGroup className="mb-2">
+                        <InputGroup.Text>BTC</InputGroup.Text>
+                        <FormControl {...countCurrency} type="number" step="0.01" min="0"
+                                     placeholder="0,00"/>
+                    </InputGroup>
+                </Col>
+                <Col xs="auto">
+                    <Button
+                        variant="primary"
+                        onClick={handleSubmit}
+                    >
+                        Add to portfolio
+                    </Button>
+                </Col>
+            </Row>
+        </ModalCoins>
 
     </tr>;
 };

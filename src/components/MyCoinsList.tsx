@@ -1,17 +1,26 @@
 import React from 'react'
 import {ListGroup} from "react-bootstrap";
 import {MyCoinItem} from "./MyCoinItem";
+import {useTypesSelector} from "../hooks/useTypesSelector";
 
 interface MyCoinsListProps {
 
 }
 
 export const MyCoinsList: React.FC<MyCoinsListProps> = () => {
-    return             <ListGroup>
+    let {portfolio} = useTypesSelector(state => state.coins)
+    return <ListGroup>
         {
-            [1,2,3].map(el => {
-                return <MyCoinItem />
-            })
+            portfolio && <>
+                {
+                    portfolio.map(el => {
+                        return <MyCoinItem key={el.name} amount={el.amount} symbol={el.symbol} name={el.name}/>
+                    })
+                }
+            </>
         }
+
+        {
+            portfolio.length === 0 && <>Ничего нет</>}
     </ListGroup>;
 };
