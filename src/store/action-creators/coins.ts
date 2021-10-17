@@ -3,14 +3,17 @@ import {ICoin, ICoins} from "../../types";
 import {CoinsAction, CoinsActionTypes} from "../../types/coins";
 import {Dispatch} from "redux";
 
-export const fetchCoins = () => {
+export const fetchCoins = (limit = 10) => {
     return async (dispatch: Dispatch<CoinsAction>) => {
         try {
             dispatch({type: CoinsActionTypes.FETCH_COINS})
-            const response: AxiosResponse<ICoins> = await axios.get('https://api.coincap.io/v2/assets?limit=10')
+            const response: AxiosResponse<ICoins> = await axios.get(`https://api.coincap.io/v2/assets?limit=${limit}`)
             dispatch({type: CoinsActionTypes.FETCH_COINS_SUCCESS, payload: response.data.data})
         } catch (e) {
-            dispatch({type: CoinsActionTypes.FETCH_COINS_ERROR, payload: 'Не удалось загрузить список криптовалют. Повторите позже'})
+            dispatch({
+                type: CoinsActionTypes.FETCH_COINS_ERROR,
+                payload: 'Не удалось загрузить список криптовалют. Повторите позже'
+            })
         }
     }
 }
@@ -19,4 +22,7 @@ export const addCoinToPage = (obj: any): CoinsAction => {
 }
 export const deleteCoinFromPortfolio = (name: string): CoinsAction => {
     return {type: CoinsActionTypes.DELETE_COIN_FROM_PORTFOLIO, payload: name}
+}
+export const changeNumberOfRowsInTheTable = (number: string): CoinsAction => {
+    return {type: CoinsActionTypes.DELETE_COIN_FROM_PORTFOLIO, payload: number}
 }

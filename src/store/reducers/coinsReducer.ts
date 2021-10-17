@@ -1,11 +1,12 @@
-import {CoinsAction, CoinsActionTypes, CoinsState } from "../../types/coins"
+import {CoinsAction, CoinsActionTypes, CoinsState} from "../../types/coins"
 
 
 const initialState: CoinsState = {
     coins: [],
     portfolio: [],
     loading: false,
-    error: null
+    error: null,
+    rowsPerPage: 10
 }
 
 export const coinsReducer = (state = initialState, action: CoinsAction): CoinsState => {
@@ -18,20 +19,23 @@ export const coinsReducer = (state = initialState, action: CoinsAction): CoinsSt
             return {...state, loading: false, error: action.payload, coins: []}
         case CoinsActionTypes.ADD_COIN_TO_PORTFOLIO:
             if (state.portfolio.some(el => el.name === action.payload.name)) {
-                return {...state, portfolio: state.portfolio.map(el => {
-                    if (el.name === action.payload.name) {
-                        return {...el, amount: +el.amount + +action.payload.amount}
-                    } else {
-                        return el
-                    }
+                return {
+                    ...state, portfolio: state.portfolio.map(el => {
+                        if (el.name === action.payload.name) {
+                            return {...el, amount: +el.amount + +action.payload.amount}
+                        } else {
+                            return el
+                        }
 
-                    })}
+                    })
+                }
             } else {
                 return {...state, portfolio: [...state.portfolio, action.payload]}
             }
-
         case CoinsActionTypes.DELETE_COIN_FROM_PORTFOLIO:
             return {...state, portfolio: state.portfolio.filter(el => el.name !== action.payload)}
+        case CoinsActionTypes.CHANGE_NUMBER_OF_ROWS_IN_THE_TABLE:
+            return {...state, rowsPerPage: action.payload}
         default:
             return state
     }
