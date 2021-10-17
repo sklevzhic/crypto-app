@@ -1,6 +1,5 @@
 import React from 'react'
-import {Modal, Button, ListGroup, Badge, Image} from 'react-bootstrap'
-import {MyCoinItem} from "./MyCoinItem";
+import {Modal, Button} from 'react-bootstrap'
 import {MyCoinsList} from "./MyCoinsList";
 interface ModalCoinsProps {
     show: boolean,

@@ -1,9 +1,5 @@
 import React from 'react'
 import {Button, Col, Image, Row} from "react-bootstrap";
-import {PopularCoins} from "../components/PopularCoins";
-import {TableCoins} from "../components/TableCoins";
-import {PaginationC} from "../components/Pagination";
-import {Task} from "../components/Task";
 
 interface CoinPageProps {
 

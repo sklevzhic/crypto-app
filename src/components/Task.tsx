@@ -1,5 +1,4 @@
 import React from 'react'
-import {Row, Col, Image} from 'react-bootstrap'
 interface TaskProps {
 
 }

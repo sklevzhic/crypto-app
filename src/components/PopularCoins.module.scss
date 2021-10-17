@@ -5,12 +5,18 @@
 
   &__coin {
     display: flex;
-    flex-direction: row;
+    flex-direction: row !important;
     padding: 4px;
     align-items: center;
     cursor: pointer;
     margin-right: 10px;
 
+    &__changeMore {
+      background: #dfffc0;
+    }
+    &--less {
+      background: #ffc0d1;
+    }
 
     .coin {
       &__image {

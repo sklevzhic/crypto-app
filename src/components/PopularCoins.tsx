@@ -11,7 +11,7 @@ export const PopularCoins: React.FC<PopularCoinsProps> = () => {
         <div className={styles.header__coins}>
             {
                 [1, 2, 3].map(el => {
-                    return <Card className={`${styles.header__coin}`}>
+                    return <Card key={el} className={styles.header__coin} style={{background: "#ffc0d1"}}>
                         <Col xs={3} className={styles.coin__image}>
                             <Image roundedCircle={true} width={30} height={30} src="https://via.placeholder.com/150"
                                    fluid/>
