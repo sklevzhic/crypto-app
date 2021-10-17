@@ -1,29 +1,25 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect} from 'react'
 import {Table} from "react-bootstrap";
-import axios, {AxiosResponse} from "axios";
-import {ICoins} from "../types";
 import {TableCoinsItem} from "./TableCoinsItem";
+import {useTypesSelector} from "../hooks/useTypesSelector";
+import {useActions} from "../hooks/useActions";
 
 interface TableCoinsListProps {
 
 }
 
 export const TableCoinsList: React.FC<TableCoinsListProps> = () => {
-    // @ts-ignore
-    let [coins, setCoins] = useState<ICoins | undefined>()
+    let {coins, loading, error} = useTypesSelector(state => state.coins)
+    let { fetchCoins } = useActions()
     useEffect(() => {
         fetchCoins()
     }, [])
-
-    async function fetchCoins() {
-        try {
-            const response: AxiosResponse<ICoins> = await axios.get('https://api.coincap.io/v2/assets?limit=10')
-            setCoins(response.data)
-        } catch (e) {
-            alert(e)
-        }
+    if (loading) {
+        return <h2>Загрузка</h2>
     }
-
+    if (error) {
+        return <h2>{error}</h2>
+    }
     return <>
         <Table striped bordered responsive hover>
             <thead>
@@ -39,7 +35,7 @@ export const TableCoinsList: React.FC<TableCoinsListProps> = () => {
                 {
                     coins && <>
                         {
-                            coins.data.map(el => {
+                            coins.map(el => {
                                 return <TableCoinsItem
                                     key={el.symbol}
                                     name={el.name}

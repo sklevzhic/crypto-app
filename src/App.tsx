@@ -5,11 +5,9 @@ import {HomePage} from "./pages/Home";
 import {CoinPage} from './pages/CoinPage';
 import {Header} from './components/Header';
 import {BrowserRouter, Route, Switch, Redirect} from "react-router-dom";
-import {useSelector} from "react-redux";
+import { Task } from './pages/task';
 
-const App = () => {
-    const state = useSelector(state => state)
-    console.log(state)
+const App: React.FC = () => {
     return (
         <div>
 
@@ -20,6 +18,7 @@ const App = () => {
                         <Switch>
                             <Route exact path="/" component={HomePage}/>
                             <Route path="/coins/:coin" component={CoinPage}/>
+                            <Route path="/task" component={Task}/>
                             <Redirect to="/"/>
                         </Switch>
                     </div>
