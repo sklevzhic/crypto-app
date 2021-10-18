@@ -1,11 +1,15 @@
 import {CoinsAction, CoinsActionTypes, CoinsState} from "../../types/coins"
 
 
+
 const initialState: CoinsState = {
     coins: [],
+    coin: {},
     portfolio: [],
     loading: false,
+    loadingInfo: false,
     error: null,
+    errorFullInfo: null,
     rowsPerPage: 10,
     offset: 0
 }
@@ -27,6 +31,21 @@ export const coinsReducer = (state = initialState, action: CoinsAction): CoinsSt
                 ...state,
                 loading: false,
                 error: action.payload
+            }
+        case CoinsActionTypes.FETCH_COIN_INFO:
+            return {...state, loadingInfo: true}
+        case CoinsActionTypes.FETCH_COIN_INFO_SUCCESS:
+            return {
+                ...state,
+                loadingInfo: false,
+                errorFullInfo: "",
+                coin: action.payload.data,
+            }
+        case CoinsActionTypes.FETCH_COINS_ERROR:
+            return {
+                ...state,
+                loadingInfo: false,
+                errorFullInfo: action.payload
             }
         case CoinsActionTypes.ADD_COIN_TO_PORTFOLIO:
             if (state.portfolio.some(el => el.name === action.payload.name)) {

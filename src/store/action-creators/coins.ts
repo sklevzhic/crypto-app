@@ -17,20 +17,23 @@ export const fetchCoins = (limit: number, offset: number) => {
         }
     }
 }
-// export const fetchCoinInfo = (coin: string) => {
-//     return async (dispatch: Dispatch<CoinsAction>) => {
-//         try {
-//             dispatch({type: CoinsActionTypes.FETCH_COIN_INFO})
-//             const response: AxiosResponse<ICoins> = await axios.get(`api.coincap.io/v2/exchanges/${coin}`)
-//             dispatch({type: CoinsActionTypes.FETCH_COIN_SUCCESS, payload: response.data})
-//         } catch (e) {
-//             dispatch({
-//                 type: CoinsActionTypes.FETCH_COIN_ERROR,
-//                 payload: 'Не удалось загрузить список криптовалют. Повторите позже'
-//             })
-//         }
-//     }
-// }
+export const fetchCoinInfo = (coin: string) => {
+    return async (dispatch: Dispatch<CoinsAction>) => {
+        try {
+            dispatch({type: CoinsActionTypes.FETCH_COIN_INFO})
+
+            const response: AxiosResponse<ICoin> = await axios.get(`https://api.coincap.io/v2/assets/${coin}`)
+            if (response.status === 200) {
+                dispatch({type: CoinsActionTypes.FETCH_COIN_INFO_SUCCESS, payload: response.data})
+            }
+        } catch (e) {
+            dispatch({
+                type: CoinsActionTypes.FETCH_COIN_INFO_ERROR,
+                payload: 'Не удалось загрузить подробную информацию'
+            })
+        }
+    }
+}
 export const addCoinToPage = (obj: any): CoinsAction => {
     return {type: CoinsActionTypes.ADD_COIN_TO_PORTFOLIO, payload: obj}
 }
