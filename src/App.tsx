@@ -5,15 +5,15 @@ import {HomePage} from "./pages/Home";
 import {CoinPage} from './pages/CoinPage';
 import {Header} from './components/Header';
 import {BrowserRouter, Route, Switch, Redirect} from "react-router-dom";
-import { Task } from './pages/task';
+import {Task} from './pages/task';
 
 const App: React.FC = () => {
     return (
         <div>
-
-            <Container>
+            <BrowserRouter>
                 <Header/>
-                <BrowserRouter>
+                <Container>
+
                     <div className="container">
                         <Switch>
                             <Route exact path="/" component={HomePage}/>
@@ -22,8 +22,9 @@ const App: React.FC = () => {
                             <Redirect to="/"/>
                         </Switch>
                     </div>
-                </BrowserRouter>
-            </Container>
+
+                </Container>
+            </BrowserRouter>
         </div>
     );
 }

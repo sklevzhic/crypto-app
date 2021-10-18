@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react'
-import {Table, Alert, Button} from "react-bootstrap";
+import {Table, Button, Spinner} from "react-bootstrap";
 import {TableCoinsItem} from "./TableCoinsItem";
 import {useTypesSelector} from "../hooks/useTypesSelector";
 import {useActions} from "../hooks/useActions";
-import {PaginationC} from "./Pagination";
+import {ErrorMessage} from "./ErrorMessage";
+import {Preloader} from "./Preloader";
 
 interface TableCoinsListProps {
 
@@ -12,20 +13,19 @@ interface TableCoinsListProps {
 export const TableCoinsList: React.FC<TableCoinsListProps> = () => {
     let { rowsPerPage, offset, coins, loading, error} = useTypesSelector(state => state.coins)
     let { fetchCoins } = useActions()
-
+    const [show, setShow] = useState(false);
     useEffect(() => {
         fetchCoins(rowsPerPage, offset)
     }, [])
 
-    // if (loading) {
-    //     return <h2>Загрузка</h2>
-    // }
+    useEffect(() => {
+        setShow(true)
+    }, [error])
+
 
     return <>
         {
-            error &&  <Alert style={{position: "fixed", left: 10, bottom: 10}} variant={"danger"}>
-                {error}
-            </Alert>
+            error && <ErrorMessage show={show} onHide={() => setShow(false)} error={error}/>
         }
         <Table striped bordered responsive hover>
             <thead>
@@ -54,9 +54,21 @@ export const TableCoinsList: React.FC<TableCoinsListProps> = () => {
                         }
                     </>
                 }
+
             </>
             </tbody>
         </Table>
-        <Button onClick={() => fetchCoins(rowsPerPage, offset)}>Показать еще</Button>
+        <Button onClick={() => fetchCoins(rowsPerPage, offset)}>
+            {
+                loading &&     <Spinner
+                    as="span"
+                    animation="grow"
+                    size="sm"
+                    role="status"
+                    aria-hidden="true"
+                />
+
+            }
+            Показать еще</Button>
     </>;
 };

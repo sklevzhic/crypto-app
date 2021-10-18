@@ -18,6 +18,7 @@ export const coinsReducer = (state = initialState, action: CoinsAction): CoinsSt
             return {
                 ...state,
                 loading: false,
+                error: "",
                 coins: [...state.coins, ...action.payload],
                 offset: state.offset + 10
             }
@@ -44,8 +45,6 @@ export const coinsReducer = (state = initialState, action: CoinsAction): CoinsSt
             }
         case CoinsActionTypes.DELETE_COIN_FROM_PORTFOLIO:
             return {...state, portfolio: state.portfolio.filter(el => el.name !== action.payload)}
-        case CoinsActionTypes.CHANGE_NUMBER_OF_ROWS_IN_THE_TABLE:
-            return {...state, rowsPerPage: action.payload}
         default:
             return state
     }

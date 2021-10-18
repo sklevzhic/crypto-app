@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {Button, Col, Image, Row} from "react-bootstrap";
 
 interface CoinPageProps {
@@ -6,6 +6,10 @@ interface CoinPageProps {
 }
 
 export const CoinPage: React.FC<CoinPageProps> = () => {
+    useEffect(() => {
+        // fetchCoinInfo()
+    }, [])
+
     return <>
         <Row>
             <Row>

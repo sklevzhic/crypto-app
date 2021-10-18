@@ -1,7 +1,6 @@
 import React from 'react'
 import {Button, Col, FormControl, InputGroup, Row} from "react-bootstrap";
 import {useInput} from "../hooks/useInput";
-import {useTypesSelector} from "../hooks/useTypesSelector";
 import {useActions} from "../hooks/useActions";
 
 interface ComponentProps {
@@ -10,7 +9,7 @@ interface ComponentProps {
 
 }
 
-export const TestComponent: React.FC<ComponentProps> = ({symbol, name}) => {
+export const FormAmount: React.FC<ComponentProps> = ({symbol, name}) => {
     let {addCoinToPage} = useActions()
     let countCurrency = useInput(0)
     const handleSubmit = () => {
