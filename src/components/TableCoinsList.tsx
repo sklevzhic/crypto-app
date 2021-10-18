@@ -1,26 +1,32 @@
-import React, {useEffect} from 'react'
-import {Table} from "react-bootstrap";
+import React, {useEffect, useState} from 'react'
+import {Table, Alert, Button} from "react-bootstrap";
 import {TableCoinsItem} from "./TableCoinsItem";
 import {useTypesSelector} from "../hooks/useTypesSelector";
 import {useActions} from "../hooks/useActions";
+import {PaginationC} from "./Pagination";
 
 interface TableCoinsListProps {
 
 }
 
 export const TableCoinsList: React.FC<TableCoinsListProps> = () => {
-    let {coins, loading, error} = useTypesSelector(state => state.coins)
+    let { rowsPerPage, offset, coins, loading, error} = useTypesSelector(state => state.coins)
     let { fetchCoins } = useActions()
+
     useEffect(() => {
-        fetchCoins()
+        fetchCoins(rowsPerPage, offset)
     }, [])
-    if (loading) {
-        return <h2>Загрузка</h2>
-    }
-    if (error) {
-        return <h2>{error}</h2>
-    }
+
+    // if (loading) {
+    //     return <h2>Загрузка</h2>
+    // }
+
     return <>
+        {
+            error &&  <Alert style={{position: "fixed", left: 10, bottom: 10}} variant={"danger"}>
+                {error}
+            </Alert>
+        }
         <Table striped bordered responsive hover>
             <thead>
             <tr>
@@ -51,7 +57,6 @@ export const TableCoinsList: React.FC<TableCoinsListProps> = () => {
             </>
             </tbody>
         </Table>
-
-
+        <Button onClick={() => fetchCoins(rowsPerPage, offset)}>Показать еще</Button>
     </>;
 };

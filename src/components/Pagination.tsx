@@ -9,11 +9,6 @@ interface PaginationProps {
 
 export const PaginationC: React.FC<PaginationProps> = () => {
     let { fetchCoins } = useActions()
-    const [rows, setRows] = useState<number>(10)
-    const handleFetchCoins = () => {
-        setRows(prev => prev +10)
-        fetchCoins(rows)
-    }
 
     let active = 1;
     let items = [];
@@ -25,24 +20,7 @@ export const PaginationC: React.FC<PaginationProps> = () => {
         );
     }
     return <>
-        <Button onClick={handleFetchCoins}>Показать еще</Button>
-        <Pagination>
-            <Pagination.First />
-            <Pagination.Prev />
-            <Pagination.Item>{1}</Pagination.Item>
-            <Pagination.Ellipsis />
 
-            <Pagination.Item active>{10}</Pagination.Item>
-            <Pagination.Item>{11}</Pagination.Item>
-            <Pagination.Item >{12}</Pagination.Item>
-            <Pagination.Item>{13}</Pagination.Item>
-            <Pagination.Item disabled>{14}</Pagination.Item>
-
-            <Pagination.Ellipsis />
-            <Pagination.Item>{20}</Pagination.Item>
-            <Pagination.Next />
-            <Pagination.Last />
-        </Pagination>
 
     </>;
 };

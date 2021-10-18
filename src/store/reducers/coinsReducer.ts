@@ -6,17 +6,27 @@ const initialState: CoinsState = {
     portfolio: [],
     loading: false,
     error: null,
-    rowsPerPage: 10
+    rowsPerPage: 10,
+    offset: 0
 }
 
 export const coinsReducer = (state = initialState, action: CoinsAction): CoinsState => {
     switch (action.type) {
         case CoinsActionTypes.FETCH_COINS:
-            return {...state, loading: true, error: null, coins: []}
+            return {...state, loading: true}
         case CoinsActionTypes.FETCH_COINS_SUCCESS:
-            return {...state, loading: false, error: null, coins: action.payload}
+            return {
+                ...state,
+                loading: false,
+                coins: [...state.coins, ...action.payload],
+                offset: state.offset + 10
+            }
         case CoinsActionTypes.FETCH_COINS_ERROR:
-            return {...state, loading: false, error: action.payload, coins: []}
+            return {
+                ...state,
+                loading: false,
+                error: action.payload
+            }
         case CoinsActionTypes.ADD_COIN_TO_PORTFOLIO:
             if (state.portfolio.some(el => el.name === action.payload.name)) {
                 return {

@@ -16,7 +16,6 @@ export const HomePage: React.FC<HomePageProps> = () => {
         <Row>
             <Col>
                 <TableCoinsList/>
-                <PaginationC/>
                 <Task/>
             </Col>
 

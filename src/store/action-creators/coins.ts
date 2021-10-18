@@ -3,11 +3,11 @@ import {ICoin, ICoins} from "../../types";
 import {CoinsAction, CoinsActionTypes} from "../../types/coins";
 import {Dispatch} from "redux";
 
-export const fetchCoins = (limit = 10) => {
+export const fetchCoins = (limit: number, offset: number) => {
     return async (dispatch: Dispatch<CoinsAction>) => {
         try {
             dispatch({type: CoinsActionTypes.FETCH_COINS})
-            const response: AxiosResponse<ICoins> = await axios.get(`https://api.coincap.io/v2/assets?limit=${limit}`)
+            const response: AxiosResponse<ICoins> = await axios.get(`https://api.coincap.io/v2/assets?limit=${limit}&offset=${offset}`)
             dispatch({type: CoinsActionTypes.FETCH_COINS_SUCCESS, payload: response.data.data})
         } catch (e) {
             dispatch({
@@ -25,4 +25,8 @@ export const deleteCoinFromPortfolio = (name: string): CoinsAction => {
 }
 export const changeNumberOfRowsInTheTable = (number: string): CoinsAction => {
     return {type: CoinsActionTypes.DELETE_COIN_FROM_PORTFOLIO, payload: number}
+}
+
+export const changeOffset = (number = 10): CoinsAction => {
+    return {type: CoinsActionTypes.CHANGE_OFFSET, payload: number}
 }

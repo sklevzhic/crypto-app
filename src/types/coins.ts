@@ -1,11 +1,10 @@
-import {changeNumberOfRowsInTheTable} from "../store/action-creators/coins";
-
 export interface CoinsState {
     coins: any[],
     portfolio: any[],
     loading: boolean,
     error: string | null,
-    rowsPerPage: number
+    rowsPerPage: number,
+    offset: number
 }
 
 export enum CoinsActionTypes {
@@ -14,7 +13,8 @@ export enum CoinsActionTypes {
     FETCH_COINS_SUCCESS = 'FETCH_COINS_SUCCESS',
     FETCH_COINS_ERROR = 'FETCH_COINS_ERROR',
     DELETE_COIN_FROM_PORTFOLIO = 'DELETE_COIN_FROM_PORTFOLIO',
-    CHANGE_NUMBER_OF_ROWS_IN_THE_TABLE = 'CHANGE_NUMBER_OF_ROWS_IN_THE_TABLE'
+    CHANGE_NUMBER_OF_ROWS_IN_THE_TABLE = 'CHANGE_NUMBER_OF_ROWS_IN_THE_TABLE',
+    CHANGE_OFFSET = 'CHANGE_OFFSET'
 
 }
 
@@ -47,9 +47,15 @@ interface changeNumberOfRowsInTheTableAction {
     payload: number
 }
 
+interface changeOffsetAction {
+    type: CoinsActionTypes.CHANGE_OFFSET,
+    payload: number
+}
+
 export type CoinsAction = FetchCoinsAction
     | FetchCoinsSuccessAction
     | FetchCoinsErrorAction
     | AddCoinToPortfolioAction
     | DeleteCoinFromPortfolioAction
     | changeNumberOfRowsInTheTableAction
+    | changeOffsetAction
