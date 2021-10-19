@@ -12,11 +12,10 @@ interface TableCoinsListProps {
 
 export const TableCoinsList: React.FC<TableCoinsListProps> = () => {
     let { rowsPerPage, offset, coins, loading, error} = useTypesSelector(state => state.coins)
-    let { fetchCoins } = useActions()
+
     const [show, setShow] = useState(false);
-    useEffect(() => {
-        fetchCoins(rowsPerPage, offset)
-    }, [])
+    let { fetchCoins } = useActions()
+
 
     useEffect(() => {
         setShow(true)

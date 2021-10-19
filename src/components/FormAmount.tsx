@@ -1,15 +1,17 @@
 import React from 'react'
-import {Button, Col, FormControl, InputGroup, Row, Image} from "react-bootstrap";
+import {Button, Col, FormControl, InputGroup, Row, Card} from "react-bootstrap";
 import {useInput} from "../hooks/useInput";
 import {useActions} from "../hooks/useActions";
+import {rounded} from "../utils/rounded";
 
 interface ComponentProps {
     symbol: string,
     name: string
     priceUsd: string
+    onHide: () => void
 }
 
-export const FormAmount: React.FC<ComponentProps> = ({symbol, name,priceUsd}) => {
+export const FormAmount: React.FC<ComponentProps> = ({symbol, name, priceUsd, onHide}) => {
     let {addCoinToPage} = useActions()
     let countCurrency = useInput(0)
     const handleSubmit = () => {
@@ -17,18 +19,21 @@ export const FormAmount: React.FC<ComponentProps> = ({symbol, name,priceUsd}) =>
             amount: countCurrency.value,
             symbol: symbol,
             priceUsd: priceUsd,
+            holdings: Number(priceUsd) * countCurrency.value,
             name: name,
         }
         addCoinToPage(obj)
+        onHide()
     }
     return <>
 
-
-        <p>Price Per Coin: {priceUsd} $</p>
-        <Row className="align-items-center">
+        <Card>
+            <Card.Body>Price Per Coin: <b>{rounded(priceUsd)} $</b></Card.Body>
+        </Card>
+        <Row className="align-items-center pt-3">
 
             <Col xs="auto">
-                <p>Quantity</p>
+                <b>Quantity</b>
                 <InputGroup className="mb-2">
                     <InputGroup.Text>{symbol}</InputGroup.Text>
                     <FormControl {...countCurrency} type="number" step="0.01" min="0"
@@ -36,12 +41,12 @@ export const FormAmount: React.FC<ComponentProps> = ({symbol, name,priceUsd}) =>
                 </InputGroup>
             </Col>
             <Col>
-                <p>Total Spent</p>
+                <b>Total Spent</b>
                 <InputGroup className="mb-2">
-                    <InputGroup.Text>$</InputGroup.Text>
-                    <p className="form-control" style={{margin: "0", cursor: "default"}}>{ Number(priceUsd) * countCurrency.value }</p>
+                    <p className="form-control"
+                       style={{margin: "0", cursor: "default"}}> $ {rounded(Number(priceUsd) * countCurrency.value)}</p>
                 </InputGroup>
-                </Col>
+            </Col>
             <Col xs="auto">
                 <Button
                     variant="primary"

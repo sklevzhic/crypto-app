@@ -1,30 +1,37 @@
 import React from 'react'
-import {Image, Card, Col} from "react-bootstrap";
-import styles from './PopularCoins.module.scss'
+import popular from '../assets/img/GainnerIcon.png'
+import {Image, Card, Row, Col} from 'react-bootstrap'
+import {useTypesSelector} from "../hooks/useTypesSelector";
+import {Change} from "./Change";
+import {rounded} from "../utils/rounded";
+import {useHistory} from "react-router-dom";
 
 interface PopularCoinsProps {
 
 }
 
 export const PopularCoins: React.FC<PopularCoinsProps> = () => {
+    let router = useHistory();
+    let {coins} = useTypesSelector(state => state.coins)
     return <>
-        <div className={styles.header__coins}>
+        <div className={"d-flex justify-content-center"}>
             {
-                [1, 2, 3].map(el => {
-                    return <Card key={el} className={styles.header__coin} style={{background: "#ffc0d1"}}>
-                        <Col xs={3} className={styles.coin__image}>
-                            <Image roundedCircle={true} width={30} height={30} src="https://via.placeholder.com/150"
-                                   fluid/>
-                            <p className={styles.coin__name}>BTC</p>
-                        </Col>
-                        <Col className={styles.coin__info}>
-                            <p className={styles.coin__price}>134,32 USD</p>
-                            <p className={styles.coin__change}>+2,38 <span>(1,80 %)</span></p>
-                        </Col>
-                    </Card>
-                })
+                Object.keys(coins).length !== 0 && <>
+                    {
+                        [0, 1, 2].map(el => {
+                            return <div onClick={() => router.push(`/coins/${coins[el].name.toLowerCase()}`)} className={"m-1"} style={{cursor: "pointer"}}>
+                                <Image width={30}
+                                       src={`https://assets.coincap.io/assets/icons/${coins[el].symbol.toLowerCase()}@2x.png`}
+                                />
+                                <span> {coins[el].symbol} <Change value={rounded(coins[el].changePercent24Hr)}/></span>
+                            </div>
+                        })
+                    }
+                </>
             }
 
+
         </div>
-    </>;
+
+    </>
 };

@@ -1,5 +1,5 @@
 import axios, {AxiosResponse} from "axios";
-import {ICoin, ICoins} from "../../types";
+import {ICoin, ICoinHistory, ICoins} from "../../types";
 import {CoinsAction, CoinsActionTypes} from "../../types/coins";
 import {Dispatch} from "redux";
 
@@ -30,6 +30,22 @@ export const fetchCoinInfo = (coin: string) => {
             dispatch({
                 type: CoinsActionTypes.FETCH_COIN_INFO_ERROR,
                 payload: 'Не удалось загрузить подробную информацию'
+            })
+        }
+    }
+}
+export const fetchCoinHistory = (coin: string) => {
+    return async (dispatch: Dispatch<CoinsAction>) => {
+        try {
+            dispatch({type: CoinsActionTypes.FETCH_COIN_HISTORY})
+            const response: AxiosResponse<ICoinHistory> = await axios.get(`https://api.coincap.io/v2/assets/${coin}/history?interval=d1`)
+            if (response.status === 200) {
+                dispatch({type: CoinsActionTypes.FETCH_COIN_HISTORY_SUCCESS, payload: response.data})
+            }
+        } catch (e) {
+            dispatch({
+                type: CoinsActionTypes.FETCH_COIN_HISTORY_ERROR,
+                payload: 'Не удалось загрузить историю криптовалюты'
             })
         }
     }

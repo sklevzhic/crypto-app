@@ -4,7 +4,7 @@ import {PopularCoins} from "./PopularCoins";
 import {ModalCoins} from "./Modal";
 import {MyCoinsList} from "./MyCoinsList";
 import {useTypesSelector} from "../hooks/useTypesSelector";
-import { useHistory } from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 
 interface HeaderProps {
 
@@ -20,18 +20,20 @@ export const Header: React.FC<HeaderProps> = () => {
             alignItems: "center"
         }}>
             <Col>
-                <h5 onClick={() => router.push("/")}>Coins-app</h5>
+                <h5 onClick={() => router.push("/")} style={{cursor: "pointer"}}>Coins-app</h5>
             </Col>
             <Col xs={6}>
                 <PopularCoins/>
             </Col>
             <Col>
-                <Button onClick={() => setModalShow(true)}>Portfolio  <Badge bg="secondary">{portfolio.length}</Badge></Button>
+                <Button onClick={() => setModalShow(true)}>Portfolio <Badge
+                    bg="secondary">{portfolio.length}</Badge></Button>
+                <Button onClick={() => setModalShow(true)}>134,32 USD +2,38 (1,80 %)</Button>
             </Col>
 
             <ModalCoins
                 show={modalShow}
-                title={"My coins"}
+                title={"Portfolio"}
                 onHide={() => setModalShow(false)}
             >
                 <MyCoinsList/>

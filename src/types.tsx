@@ -16,3 +16,7 @@ export interface ICoin {
     vwap24Hr: string,
     explorer?: string,
 }
+export interface ICoinHistory {
+    priceUsd: string,
+    time: number,
+}

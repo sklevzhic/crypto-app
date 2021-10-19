@@ -1,11 +1,16 @@
+import {ICoinHistory} from "../types";
+
 export interface CoinsState {
     coins: any[],
     coin: any,
+    coinHistory: ICoinHistory[],
     portfolio: any[],
     loading: boolean,
-    loadingInfo: boolean
+    loadingInfo: boolean,
+    loadingHistory: boolean,
     error: string | null,
     errorFullInfo: string | null,
+    errorLoadingHistory: string | null,
     rowsPerPage: number,
     offset: number
 }
@@ -17,6 +22,9 @@ export enum CoinsActionTypes {
     FETCH_COIN_INFO = 'FETCH_COIN_INFO',
     FETCH_COIN_INFO_SUCCESS = 'FETCH_COIN_INFO_SUCCESS',
     FETCH_COIN_INFO_ERROR = 'FETCH_COIN_INFO_ERROR',
+    FETCH_COIN_HISTORY = 'FETCH_COIN_HISTORY',
+    FETCH_COIN_HISTORY_SUCCESS = 'FETCH_COIN_HISTORY_SUCCESS',
+    FETCH_COIN_HISTORY_ERROR = 'FETCH_COIN_HISTORY_ERROR',
     ADD_COIN_TO_PORTFOLIO = 'ADD_COIN_TO_PORTFOLIO',
     DELETE_COIN_FROM_PORTFOLIO = 'DELETE_COIN_FROM_PORTFOLIO',
 
@@ -50,6 +58,24 @@ interface FetchCoinInfoErrorAction {
     payload: string
 }
 
+
+interface FetchCoinHistoryAction {
+    type: CoinsActionTypes.FETCH_COIN_HISTORY,
+}
+
+interface FetchCoinHistorySuccessAction {
+    type: CoinsActionTypes.FETCH_COIN_HISTORY_SUCCESS,
+    payload: any
+}
+
+interface FetchCoinHistoryErrorAction {
+    type: CoinsActionTypes.FETCH_COIN_HISTORY_ERROR,
+    payload: string
+}
+
+
+
+
 interface AddCoinToPortfolioAction {
     type: CoinsActionTypes.ADD_COIN_TO_PORTFOLIO,
     payload: any
@@ -60,12 +86,14 @@ interface DeleteCoinFromPortfolioAction {
     payload: string
 }
 
-
 export type CoinsAction = FetchCoinsAction
     | FetchCoinsSuccessAction
     | FetchCoinsErrorAction
     | FetchCoinInfoAction
     | FetchCoinInfoSuccessAction
     | FetchCoinInfoErrorAction
+    | FetchCoinHistoryAction
+    | FetchCoinHistorySuccessAction
+    | FetchCoinHistoryErrorAction
     | AddCoinToPortfolioAction
     | DeleteCoinFromPortfolioAction

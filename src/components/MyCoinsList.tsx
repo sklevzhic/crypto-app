@@ -12,7 +12,7 @@ export const MyCoinsList: React.FC<MyCoinsListProps> = () => {
     return <ListGroup>
 
         {
-            portfolio && <Table striped bordered hover>
+            portfolio.length !== 0 && <Table striped bordered hover>
                 <thead>
                 <tr>
                     <th>Icon</th>
@@ -24,7 +24,8 @@ export const MyCoinsList: React.FC<MyCoinsListProps> = () => {
                 </thead>
                 {
                     portfolio.map(el => {
-                        return <MyCoinItem key={el.name} amount={el.amount} symbol={el.symbol} name={el.name}/>
+                        return <MyCoinItem key={el.name} amount={el.amount} symbol={el.symbol} name={el.name}
+                                           priceUsd={el.priceUsd} holdings={el.holdings}/>
                     })
                 }
             </Table>

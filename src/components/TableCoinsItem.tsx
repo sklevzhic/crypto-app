@@ -4,6 +4,8 @@ import styles from './TableCoins.module.scss'
 import {ModalCoins} from "./Modal";
 import {FormAmount} from "./FormAmount";
 import {useHistory} from 'react-router-dom';
+import {rounded} from "../utils/rounded";
+import {Change} from "./Change";
 
 
 interface TableCoinsListProps {
@@ -42,10 +44,10 @@ export const TableCoinsItem: React.FC<TableCoinsListProps> = ({name, rank, symbo
 
             </td>
             <td style={{textAlign: "right"}}>
-                $ {parseFloat(priceUsd).toFixed(2)}
+                $ {rounded(priceUsd)}
             </td>
             <td>
-                {parseFloat(changePercent24Hr).toFixed(2)} %
+                <Change value={`${rounded(changePercent24Hr)}`}/>
             </td>
             <td>
                 <Button onClick={handleClick}>+</Button>
@@ -56,7 +58,7 @@ export const TableCoinsItem: React.FC<TableCoinsListProps> = ({name, rank, symbo
             title={"My coins"}
             onHide={() => setModalShow(false)}
         >
-            <FormAmount symbol={symbol} name={name} priceUsd={priceUsd}/>
+            <FormAmount symbol={symbol} name={name} priceUsd={priceUsd} onHide={() => setModalShow(false)}/>
         </ModalCoins>
     </>;
 };
