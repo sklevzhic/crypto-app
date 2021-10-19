@@ -10,11 +10,23 @@ import {useActions} from "./hooks/useActions";
 import {useTypesSelector} from "./hooks/useTypesSelector";
 
 const App: React.FC = () => {
-    let { rowsPerPage, offset} = useTypesSelector(state => state.coins)
-    let { fetchCoins } = useActions()
+    let {rowsPerPage, offset, portfolio} = useTypesSelector(state => state.coins)
+    let {fetchCoins, setPortfolio} = useActions()
     useEffect(() => {
         fetchCoins(rowsPerPage, offset)
     }, [])
+
+    useEffect(() => {
+            if (localStorage.getItem('portfolio')) {
+                setPortfolio(JSON.parse(localStorage.getItem("portfolio") as any))
+            }
+        }, []
+    )
+
+    useEffect(() => {
+        localStorage.setItem("portfolio", JSON.stringify(portfolio))
+    }, [portfolio])
+
     return (
         <div>
             <BrowserRouter>

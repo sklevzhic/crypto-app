@@ -12,7 +12,8 @@ export interface CoinsState {
     errorFullInfo: string | null,
     errorLoadingHistory: string | null,
     rowsPerPage: number,
-    offset: number
+    offset: number,
+    sumPortfolio: number
 }
 
 export enum CoinsActionTypes {
@@ -25,6 +26,7 @@ export enum CoinsActionTypes {
     FETCH_COIN_HISTORY = 'FETCH_COIN_HISTORY',
     FETCH_COIN_HISTORY_SUCCESS = 'FETCH_COIN_HISTORY_SUCCESS',
     FETCH_COIN_HISTORY_ERROR = 'FETCH_COIN_HISTORY_ERROR',
+    SET_PORTFOLIO = 'SET_PORTFOLIO',
     ADD_COIN_TO_PORTFOLIO = 'ADD_COIN_TO_PORTFOLIO',
     DELETE_COIN_FROM_PORTFOLIO = 'DELETE_COIN_FROM_PORTFOLIO',
 
@@ -73,9 +75,6 @@ interface FetchCoinHistoryErrorAction {
     payload: string
 }
 
-
-
-
 interface AddCoinToPortfolioAction {
     type: CoinsActionTypes.ADD_COIN_TO_PORTFOLIO,
     payload: any
@@ -84,6 +83,11 @@ interface AddCoinToPortfolioAction {
 interface DeleteCoinFromPortfolioAction {
     type: CoinsActionTypes.DELETE_COIN_FROM_PORTFOLIO,
     payload: string
+}
+
+interface SetPortfolioAction {
+    type: CoinsActionTypes.SET_PORTFOLIO,
+    payload: any
 }
 
 export type CoinsAction = FetchCoinsAction
@@ -97,3 +101,4 @@ export type CoinsAction = FetchCoinsAction
     | FetchCoinHistoryErrorAction
     | AddCoinToPortfolioAction
     | DeleteCoinFromPortfolioAction
+    | SetPortfolioAction

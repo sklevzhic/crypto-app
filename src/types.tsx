@@ -20,3 +20,11 @@ export interface ICoinHistory {
     priceUsd: string,
     time: number,
 }
+
+export interface IPortfolioItem {
+    amount: string
+    holdings: number
+    name: string
+    priceUsd: string
+    symbol: string
+}

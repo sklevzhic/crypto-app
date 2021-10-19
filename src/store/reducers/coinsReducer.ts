@@ -15,7 +15,8 @@ const initialState: CoinsState = {
     errorFullInfo: null,
     errorLoadingHistory: null,
     rowsPerPage: 10,
-    offset: 0
+    offset: 0,
+    sumPortfolio: 0
 }
 
 export const coinsReducer = (state = initialState, action: CoinsAction): CoinsState => {
@@ -69,12 +70,18 @@ export const coinsReducer = (state = initialState, action: CoinsAction): CoinsSt
                 loadingHistory: false,
                 errorLoadingHistory: action.payload
             }
+        case CoinsActionTypes.SET_PORTFOLIO:
+            return {...state, portfolio: action.payload}
         case CoinsActionTypes.ADD_COIN_TO_PORTFOLIO:
             if (state.portfolio.some(el => el.name === action.payload.name)) {
                 return {
-                    ...state, portfolio: state.portfolio.map(el => {
+                    ...state,
+                    portfolio: state.portfolio.map(el => {
                         if (el.name === action.payload.name) {
-                            return {...el, amount: +el.amount + +action.payload.amount}
+                            return {...el,
+                                amount: +el.amount + +action.payload.amount,
+                                holdings: +el.holdings + +action.payload.holdings
+                            }
                         } else {
                             return el
                         }
@@ -82,7 +89,10 @@ export const coinsReducer = (state = initialState, action: CoinsAction): CoinsSt
                     })
                 }
             } else {
-                return {...state, portfolio: [...state.portfolio, action.payload]}
+                return {
+                    ...state,
+                    portfolio: [...state.portfolio, action.payload]
+                }
             }
         case CoinsActionTypes.DELETE_COIN_FROM_PORTFOLIO:
             return {...state, portfolio: state.portfolio.filter(el => el.name !== action.payload)}

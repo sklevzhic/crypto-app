@@ -5,6 +5,7 @@ import {ModalCoins} from "./Modal";
 import {MyCoinsList} from "./MyCoinsList";
 import {useTypesSelector} from "../hooks/useTypesSelector";
 import {useHistory} from 'react-router-dom';
+import { rounded } from '../utils/rounded';
 
 interface HeaderProps {
 
@@ -13,7 +14,8 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = () => {
     let router = useHistory();
     const [modalShow, setModalShow] = React.useState<boolean>(false);
-    let {portfolio} = useTypesSelector(state => state.coins)
+    let {portfolio, sumPortfolio} = useTypesSelector(state => state.coins)
+
     return <Container>
         <Row style={{
             margin: "5px 0 20px",
@@ -28,7 +30,7 @@ export const Header: React.FC<HeaderProps> = () => {
             <Col>
                 <Button onClick={() => setModalShow(true)}>Portfolio <Badge
                     bg="secondary">{portfolio.length}</Badge></Button>
-                <Button onClick={() => setModalShow(true)}>134,32 USD +2,38 (1,80 %)</Button>
+                <Button onClick={() => setModalShow(true)}>{rounded(sumPortfolio)} USD +2,38 (1,80 %)</Button>
             </Col>
 
             <ModalCoins

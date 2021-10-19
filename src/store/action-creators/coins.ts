@@ -1,5 +1,5 @@
 import axios, {AxiosResponse} from "axios";
-import {ICoin, ICoinHistory, ICoins} from "../../types";
+import {ICoin, ICoinHistory, ICoins, IPortfolioItem} from "../../types";
 import {CoinsAction, CoinsActionTypes} from "../../types/coins";
 import {Dispatch} from "redux";
 
@@ -55,5 +55,8 @@ export const addCoinToPage = (obj: any): CoinsAction => {
 }
 export const deleteCoinFromPortfolio = (name: string): CoinsAction => {
     return {type: CoinsActionTypes.DELETE_COIN_FROM_PORTFOLIO, payload: name}
+}
+export const setPortfolio = (obj: IPortfolioItem[]): CoinsAction => {
+    return {type: CoinsActionTypes.SET_PORTFOLIO, payload: obj}
 }
 
