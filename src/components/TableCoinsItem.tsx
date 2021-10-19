@@ -56,7 +56,7 @@ export const TableCoinsItem: React.FC<TableCoinsListProps> = ({name, rank, symbo
             title={"My coins"}
             onHide={() => setModalShow(false)}
         >
-            <FormAmount symbol={symbol} name={name}/>
+            <FormAmount symbol={symbol} name={name} priceUsd={priceUsd}/>
         </ModalCoins>
     </>;
 };

@@ -1,5 +1,5 @@
 import React from 'react'
-import {Button, Col, Container, Row} from "react-bootstrap";
+import {Button, Col, Container, Row, Badge} from "react-bootstrap";
 import {PopularCoins} from "./PopularCoins";
 import {ModalCoins} from "./Modal";
 import {MyCoinsList} from "./MyCoinsList";
@@ -26,7 +26,7 @@ export const Header: React.FC<HeaderProps> = () => {
                 <PopularCoins/>
             </Col>
             <Col>
-                <Button onClick={() => setModalShow(true)}>Portfolio ({portfolio.length})</Button>
+                <Button onClick={() => setModalShow(true)}>Portfolio  <Badge bg="secondary">{portfolio.length}</Badge></Button>
             </Col>
 
             <ModalCoins

@@ -1,5 +1,5 @@
 import React from 'react'
-import {Button, Image, ListGroup} from "react-bootstrap";
+import {Button, Col, Image, ListGroup, Row} from "react-bootstrap";
 import {useActions} from "../hooks/useActions";
 
 
@@ -11,17 +11,24 @@ interface MyCoinItemProps {
 
 export const MyCoinItem: React.FC<MyCoinItemProps> = ({name, symbol, amount}) => {
     let { deleteCoinFromPortfolio } = useActions()
-    return <ListGroup.Item
-        as="li"
-        className="d-flex justify-content-between align-items-start"
-    >
-        <div>
+    return <tr>
+        <td>
             <Image width={50} height={50} src={`https://assets.coincap.io/assets/icons/${symbol.toLowerCase()}@2x.png`} fluid/>
-        </div>
-        <div className="ms-2 me-auto">
-            <div className="fw-bold">{amount}</div>
-            {name}
-        </div>
-        <Button onClick={() => deleteCoinFromPortfolio(name) }>X</Button>
-    </ListGroup.Item>;
+        </td>
+        <td>
+             $62,222.97
+        </td>
+        <td>
+             $24,890.25
+        </td>
+        <td>
+             0.04%
+        </td>
+
+
+        <td>
+            <Button color={"primary"} onClick={() => deleteCoinFromPortfolio(name) }>X</Button>
+        </td>
+    </tr>
+
 };

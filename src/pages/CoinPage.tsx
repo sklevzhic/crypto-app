@@ -6,6 +6,8 @@ import {useActions} from "../hooks/useActions";
 import {useTypesSelector} from "../hooks/useTypesSelector";
 // @ts-ignore
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
+import {ModalCoins} from "../components/Modal";
+import {FormAmount} from "../components/FormAmount";
 const data = [
         {
             "priceUsd": "11580.7895103657375588",
@@ -1839,6 +1841,7 @@ interface ParamTypes {
 
 export const CoinPage: React.FC = () => {
     let {coin} = useTypesSelector(state => state.coins)
+    const [modalShow, setModalShow] = React.useState<boolean>(false);
 
     let params = useParams<ParamTypes>()
     let {fetchCoinInfo} = useActions()
@@ -1846,22 +1849,24 @@ export const CoinPage: React.FC = () => {
         fetchCoinInfo(params.coin)
     }, [])
 
+
     return <>
         <Row>
             {
                 coin && <Row>
                     <Col>
-                        {/*<Image*/}
-                        {/*    src={`https://assets.coincap.io/assets/icons/${coin.symbol.toLowerCase()}@2x.png`}*/}
-                        {/*    width={40}*/}
-                        {/*    height={40}*/}
-                        {/*/>*/}
+                        <Image
+                            src={`https://assets.coincap.io/assets/icons/${coin.symbol.toLowerCase()}@2x.png`}
+                            width={40}
+                            height={40}
+                        />
+
                     </Col>
                     <Col>
                         <p>{coin.name} ({coin.symbol})</p>
                     </Col>
                     <Col>
-                        <p>HIGH$ </p>
+                        <p>Bitcoin Price (BTC) $62,051.10</p>
                         <p>LOW$60,260.90</p>
                     </Col>
                     <Col>
@@ -1869,11 +1874,17 @@ export const CoinPage: React.FC = () => {
                         <p>CHANGE-0.45%</p>
                     </Col>
                     <Col>
-                        <Button>+</Button>
+                        <Button onClick={() => setModalShow(true)}>+</Button>
                     </Col>
                 </Row>
             }
-
+            <ModalCoins
+                show={modalShow}
+                title={"My coins"}
+                onHide={() => setModalShow(false)}
+            >
+                <FormAmount symbol={coin.symbol} name={coin.name} priceUsd={coin.priceUsd}/>
+            </ModalCoins>
 
             <LineChart width={900} height={300} data={data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
                 <Line type="monotone" dataKey="priceUsd" stroke="#8884d8" />
