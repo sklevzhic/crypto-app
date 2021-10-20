@@ -2,7 +2,6 @@ import {CoinsAction, CoinsActionTypes, CoinsState} from "../../types/coins"
 import {ICoinHistory} from "../../types";
 
 
-
 const initialState: CoinsState = {
     coins: [],
     coin: {},
@@ -46,7 +45,7 @@ export const coinsReducer = (state = initialState, action: CoinsAction): CoinsSt
                 errorFullInfo: "",
                 coin: action.payload.data,
             }
-        case CoinsActionTypes.FETCH_COINS_ERROR:
+        case CoinsActionTypes.FETCH_COIN_INFO_ERROR:
             return {
                 ...state,
                 loadingInfo: false,
@@ -78,8 +77,10 @@ export const coinsReducer = (state = initialState, action: CoinsAction): CoinsSt
                     ...state,
                     portfolio: state.portfolio.map(el => {
                         if (el.name === action.payload.name) {
-                            return {...el,
+                            return {
+                                ...el,
                                 amount: +el.amount + +action.payload.amount,
+                                priceUsd: action.payload.priceUsd,
                                 holdings: +el.holdings + +action.payload.holdings
                             }
                         } else {

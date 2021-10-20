@@ -1,7 +1,8 @@
 import React from 'react'
-import {Button, Col, Image, ListGroup, Row} from "react-bootstrap";
+import {Button, Col, Image, ListGroup} from "react-bootstrap";
 import {useActions} from "../hooks/useActions";
 import {rounded} from "../utils/rounded";
+import { Change } from './Change'
 
 
 interface MyCoinItemProps {
@@ -26,7 +27,7 @@ export const MyCoinItem: React.FC<MyCoinItemProps> = ({name, symbol, amount, hol
              $ {rounded(holdings)}
         </td>
         <td>
-             0.04%
+             <Change value={"-2"}/>
         </td>
 
 

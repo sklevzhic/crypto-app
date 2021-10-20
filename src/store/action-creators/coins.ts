@@ -22,14 +22,14 @@ export const fetchCoinInfo = (coin: string) => {
         try {
             dispatch({type: CoinsActionTypes.FETCH_COIN_INFO})
 
-            const response: AxiosResponse<ICoin> = await axios.get(`https://api.coincap.io/v2/assets/${coin}`)
+            const response: AxiosResponse<ICoin> = await axios.get(`https://api.coincap.io/v2/assets/${coin}7aa442c5-943e-484b-a7fb-d47ae5794f22`)
             if (response.status === 200) {
                 dispatch({type: CoinsActionTypes.FETCH_COIN_INFO_SUCCESS, payload: response.data})
             }
         } catch (e) {
             dispatch({
                 type: CoinsActionTypes.FETCH_COIN_INFO_ERROR,
-                payload: 'Не удалось загрузить подробную информацию'
+                payload: 'Не удалось загрузить подробную информацию. Повторите позже'
             })
         }
     }

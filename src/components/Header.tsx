@@ -14,7 +14,7 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = () => {
     let router = useHistory();
     const [modalShow, setModalShow] = React.useState<boolean>(false);
-    let {portfolio, sumPortfolio} = useTypesSelector(state => state.coins)
+    let {portfolio} = useTypesSelector(state => state.coins)
 
     return <Container>
         <Row style={{
@@ -30,7 +30,7 @@ export const Header: React.FC<HeaderProps> = () => {
             <Col>
                 <Button onClick={() => setModalShow(true)}>Portfolio <Badge
                     bg="secondary">{portfolio.length}</Badge></Button>
-                <Button onClick={() => setModalShow(true)}>{rounded(sumPortfolio)} USD +2,38 (1,80 %)</Button>
+                <Button onClick={() => setModalShow(true)}>{"12"} USD +2,38 (1,80 %)</Button>
             </Col>
 
             <ModalCoins
