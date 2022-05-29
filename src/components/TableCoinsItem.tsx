@@ -1,6 +1,6 @@
 import React from 'react'
 import {Image, Col, Row, Button} from "react-bootstrap";
-import styles from './TableCoins.module.scss'
+import styles from './TableCoins.module.css'
 import {ModalCoins} from "./Modal";
 import {FormAmount} from "./FormAmount";
 import {useHistory} from 'react-router-dom';
