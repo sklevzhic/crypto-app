@@ -16,6 +16,8 @@ const App: React.FC = () => {
         fetchCoins(rowsPerPage, offset)
     }, [])
 
+
+    // df
     useEffect(() => {
             if (localStorage.getItem('portfolio')) {
                 setPortfolio(JSON.parse(localStorage.getItem("portfolio") as any))
